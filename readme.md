@@ -1,1 +1,6 @@
 Node.js: v10.17.0
+
+Deploying CampaignFactory Transaction Hash: 0x50563fe7b270f51c0a6439968a1f3165ef927a8dcd7718666a9d1cf62f4ff13c
+CampaingFactory Contract Address: 0xC704f3B307AAbaCA1135eCF0605E174083f29918
+EtherScan: https://rinkeby.etherscan.io/address/0xc704f3b307aabaca1135ecf0605e174083f29918
+Deployed From: 0xbDfDDe986539ACD2caE7f7Fa75F42cFFd3a02212
