@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
 class CampaignShow extends Component {
   static async getInitialProps(props) {
     const campaign = Campaign(props.query.address);
     const summary = await campaign.methods.getSummary().call();
     return {
+      address: props.query.address,
       minimumContribution: summary[0],
       balance: summary[1],
       requestsCount: summary[2],
@@ -30,28 +33,31 @@ class CampaignShow extends Component {
         header: manager,
         meta: 'Address of Manager',
         description:
-          'The manager created this campaign and can create requests to withdraw money',
+          'The manager created this campaign and can create requests to withdraw money.',
         style: { overflowWrap: 'break-word' }
       },
       {
-        header: '',
-        meta: '',
-        description: ''
+        header: minimumContribution,
+        meta: 'Minimum Contribution (wei)',
+        description:
+          'You mush contribute at least this much wei to become an contributor.'
       },
       {
-        header: '',
-        meta: '',
-        description: ''
+        header: requestsCount,
+        meta: 'Number of Requests',
+        description:
+          'A request tries to withdraw money from the contract. Request must be approved by approvers.'
       },
       {
-        header: '',
-        meta: '',
-        description: ''
+        header: approversCount,
+        meta: 'Number of Approvers',
+        description: 'Number of people donated to this campaign.'
       },
       {
-        header: '',
-        meta: '',
-        description: ''
+        header: web3.utils.fromWei(balance, 'ether'),
+        meta: 'Campaign balance (ether)',
+        description:
+          'The balance is how much money this campaign has left to spend.'
       }
     ];
     return <Card.Group items={items} />;
@@ -61,7 +67,12 @@ class CampaignShow extends Component {
     return (
       <Layout>
         <h3>Campaign Show</h3>
-        {this.renderCards()}
+        <Grid>
+          <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
+          <Grid.Column width={6}>
+            <ContributeForm address={this.props.address} />
+          </Grid.Column>
+        </Grid>
       </Layout>
     );
   }
