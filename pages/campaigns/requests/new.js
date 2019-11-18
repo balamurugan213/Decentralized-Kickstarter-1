@@ -29,6 +29,7 @@ class RequestNew extends Component {
       await campaign.methods
         .createRequest(description, web3.utils.toWei(value, 'ether'), recipient)
         .send({ from: account[0] });
+      Router.push(`/campaigns/${this.props.address}/requests`);
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
@@ -38,6 +39,11 @@ class RequestNew extends Component {
   render() {
     return (
       <Layout>
+        <Link route={`/campaigns/${this.props.address}/requests`}>
+          <a>
+            <Button primary>Back</Button>
+          </a>
+        </Link>
         <h3>Create a Request</h3>
         <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
@@ -65,6 +71,7 @@ class RequestNew extends Component {
               }
             />
           </Form.Field>
+          <Message error header='Oops!' content={this.state.errorMessage} />
           <Button primary loading={this.state.loading}>
             Create
           </Button>
