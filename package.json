@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha",
     "build_contract": "node ethereum/compile.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build_next": "next build",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
